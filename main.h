@@ -33,3 +33,5 @@ void	sb(t_stack *stack, int *counter);
 void	pb(t_stack *a, t_stack *b, int *counter);
 void	rb(t_stack *stack, int *counter);
 void	rrb(t_stack *stack, int *counter);
+void	rr(t_stack *a, t_stack *b, int *counter);
+void	rrr(t_stack *a, t_stack *b, int *counter);

@@ -80,29 +80,48 @@ void	find_dup(t_stack *a)
 	}
 }
 
-void	add_to_back(t_stack *a, t_stack *b, int *counter)
+int	calc_index(t_stack *stack, t_node *successor)
 {
 	t_node	*tmp;
-	t_node	*min_a;
-	t_node	*max_a;
-	t_node	*successor;
+	int		i;
 
-	tmp = a->top;
-	min_a = a->top;
-	max_a = a->top;
+	if (successor->value == stack->top->value)
+		return (0);
+	tmp = stack->top;
+	i = 0;
 	while (tmp)
 	{
-		if (tmp->value > max_a->value)
-			max_a = tmp;
-		if (tmp->value < min_a->value)
-			min_a = tmp;
+		if (tmp->value == successor-> value)
+			break ;
+		i++;
 		tmp = tmp->prev;
 	}
-	tmp = a->top;
+	return (i);
+}
+
+int	find_successor(t_stack *go, t_node *base)
+{
+	t_node	*tmp;
+	t_node	*min_go;
+	t_node	*max_go;
+	t_node	*successor;
+
+	tmp = go->top;
+	min_go = go->top;
+	max_go = go->top;
+	while (tmp)
+	{
+		if (tmp->value > max_go->value)
+			max_go = tmp;
+		if (tmp->value < min_go->value)
+			min_go = tmp;
+		tmp = tmp->prev;
+	}
+	tmp = go->top;
 	successor = NULL;
 	while (tmp)
 	{
-		if (tmp->value > b->top->value)
+		if (tmp->value > base->value)
 		{
 			if (successor == NULL)
 				successor = tmp;
@@ -112,97 +131,51 @@ void	add_to_back(t_stack *a, t_stack *b, int *counter)
 		tmp = tmp->prev;
 	}
 	if (successor == NULL)
-	{
-		find_put_smallest(a, counter);
-		pa(a, b, counter);
-	}
+		return (calc_index(go, max_go));
 	else
-	{
-		push_to_top(a, successor, counter);
-		pa(a, b, counter);
-	}
+		return (calc_index(go, successor));
 
 }
 
-void	sort_arr(int *arr, int size)
-{
-	int	tmp;
-	int	i;
-	int	j;
 
-	i = 0;
-	while (i < size - 1)
-	{
-		j = 0;
-		while (j < size - i - 1)
-		{
-			if (arr[j] > arr[j + 1])
-			{
-				tmp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-void	append_index(int *arr, t_stack *a)
+int	calc_price(t_stack *a, t_stack *b)
 {
-	int		i;
 	t_node	*tmp;
+	int		price;
+	int		tmp_price;
+	int		tmp_v;
+	int		tmp_s;
 
 	tmp = a->top;
+	price = 2147483647;
 	while (tmp)
 	{
-		i = 0;
-		while (i < a->size)
+		tmp_v = find_successor(b, tmp);
+		tmp_s = calc_index(a, tmp);
+		if (b->size / 2 >= tmp_v)
 		{
-			if (arr[i] == tmp->value)
-			{
-				tmp->index = i;
-				break ;
-			}
-			i++;
+			if (a->size / 2 >= tmp_s && tmp_v >= tmp_s)
+				tmp_price = tmp_v;
+			else if (a->size / 2 >= tmp_s && tmp_v < tmp_s)
+				tmp_price = tmp_s;
+			else
+				tmp_price = tmp_v + a->size - tmp_s;
 		}
+		else
+		{
+			if (a->size / 2 <= tmp_s && tmp_v >= tmp_s)
+				tmp_price = a->size - tmp_s;
+			else if (a->size / 2 >= tmp_s && tmp_v < tmp_s)
+				tmp_price = b->size - tmp_v;
+			else
+				tmp_price = tmp_s + b->size - tmp_v;
+		}
+
+		if (price > tmp_price)
+			price = tmp_price;
 		tmp = tmp->prev;
 	}
-	free(arr);
-}
-
-void create_index(t_stack *a)
-{
-	int		*arr;
-	t_node	*tmp;
-	int		i;
-
-	arr = (int *)malloc(sizeof(int) * a->size);
-	if (!arr)
-		catch_error("Cannot init.");
-	tmp = a->top;
-	i = 0;
-	while (tmp)
-	{
-		arr[i++] = tmp->value;
-		tmp = tmp->prev;
-	}
-	sort_arr(arr, a->size);
-	append_index(arr, a);
-}
-
-int	calc_chunk(t_stack *a)
-{
-	if (a->size <= 20)
-		return (2);
-	else if (a->size <= 200 && a->size >= 21)
-		return (6);
-	else
-		return (10);
-}
-
-void	push_to_b(t_stack *a, t_stack *b, int chunk)
-{
-c
+	return (++price);
 }
 
 int	main(int c, char *argv[])
@@ -223,8 +196,13 @@ int	main(int c, char *argv[])
 	if (c == 1)
 		catch_error("No input");
 	find_dup(&a);
-	create_index(&a);
-	push_to_b(&a, &b, calc_chunk(&a));
+	while (a.size > 3)
+	{
+		if (b.size < 2)
+			pa(&a, &b, &counter);
+		else
+			calc_price(&a, &b);
+	}
 	if (b.size)
 	{
 		while (b.size > 0)
