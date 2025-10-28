@@ -46,6 +46,7 @@ t_node	*create_node(int value)
 	node->value = value;
 	node->next = NULL;
 	node->prev = NULL;
+	node->index = 0;
 	return (node);
 }
 

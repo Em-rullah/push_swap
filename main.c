@@ -16,6 +16,7 @@ void	push_to_top(t_stack *a, t_node *min, int *counter)
 	t_node	*tmp;
 	int		count;
 	int		min_i;
+
 	if (min->value == a->top->value)
 		return ;
 	tmp = a->top;
@@ -41,20 +42,23 @@ void	push_to_top(t_stack *a, t_node *min, int *counter)
 	}
 }
 
-void	calc_rota(t_stack *a, int *counter)
+void	find_put_smallest(t_stack *a, int *counter)
 {
+	int		size;
 	t_node	*tmp;
-	t_node	*min;
 
-	min = a->top;
+	size = a->size;
 	tmp = a->top;
-	while (tmp)
+	while (size)
 	{
-		if (min->value > tmp->value)
-			min = tmp;
+		if (tmp->index == 0)
+		{
+			push_to_top(a, tmp, counter);
+			return ;
+		}
 		tmp = tmp->prev;
+		size--;
 	}
-	push_to_top(a, min, counter);
 }
 
 void	find_dup(t_stack *a)
@@ -82,12 +86,10 @@ void	add_to_back(t_stack *a, t_stack *b, int *counter)
 	t_node	*min_a;
 	t_node	*max_a;
 	t_node	*successor;
-	int		i;
 
 	tmp = a->top;
 	min_a = a->top;
 	max_a = a->top;
-	i = 0;
 	while (tmp)
 	{
 		if (tmp->value > max_a->value)
@@ -111,7 +113,7 @@ void	add_to_back(t_stack *a, t_stack *b, int *counter)
 	}
 	if (successor == NULL)
 	{
-		calc_rota(a, counter);
+		find_put_smallest(a, counter);
 		pa(a, b, counter);
 	}
 	else
@@ -122,12 +124,92 @@ void	add_to_back(t_stack *a, t_stack *b, int *counter)
 
 }
 
+void	sort_arr(int *arr, int size)
+{
+	int	tmp;
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < size - 1)
+	{
+		j = 0;
+		while (j < size - i - 1)
+		{
+			if (arr[j] > arr[j + 1])
+			{
+				tmp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+void	append_index(int *arr, t_stack *a)
+{
+	int		i;
+	t_node	*tmp;
+
+	tmp = a->top;
+	while (tmp)
+	{
+		i = 0;
+		while (i < a->size)
+		{
+			if (arr[i] == tmp->value)
+			{
+				tmp->index = i;
+				break ;
+			}
+			i++;
+		}
+		tmp = tmp->prev;
+	}
+	free(arr);
+}
+
+void create_index(t_stack *a)
+{
+	int		*arr;
+	t_node	*tmp;
+	int		i;
+
+	arr = (int *)malloc(sizeof(int) * a->size);
+	if (!arr)
+		catch_error("Cannot init.");
+	tmp = a->top;
+	i = 0;
+	while (tmp)
+	{
+		arr[i++] = tmp->value;
+		tmp = tmp->prev;
+	}
+	sort_arr(arr, a->size);
+	append_index(arr, a);
+}
+
+int	calc_chunk(t_stack *a)
+{
+	if (a->size <= 20)
+		return (2);
+	else if (a->size <= 200 && a->size >= 21)
+		return (6);
+	else
+		return (10);
+}
+
+void	push_to_b(t_stack *a, t_stack *b, int chunk)
+{
+c
+}
+
 int	main(int c, char *argv[])
 {
 	t_stack	a;
 	t_stack	b;
 	int		i;
-	int		warp;
 	int		counter;
 
 	init(&a, &b);
@@ -138,23 +220,18 @@ int	main(int c, char *argv[])
 		add_to_bottom(create_node(ft_atoi(argv[i])), &a);
 		i++;
 	}
-	if (a.top == NULL)
+	if (c == 1)
 		catch_error("No input");
 	find_dup(&a);
-	warp = calc_wrap(&a);
-	while (warp > 1 && a.size > 3)
-	{
-		calc_rota(&a, &counter);
-		pb(&a, &b, &counter);
-		warp = calc_wrap(&a);
-	}
+	create_index(&a);
+	push_to_b(&a, &b, calc_chunk(&a));
 	if (b.size)
 	{
 		while (b.size > 0)
 		{
 			add_to_back(&a, &b, &counter);
 		}
-		calc_rota(&a, &counter);
+		find_put_smallest(&a, &counter);
 		t_node *tmp;
 		tmp = a.top;
 		while (tmp)
@@ -165,7 +242,7 @@ int	main(int c, char *argv[])
 		printf("count: %i \n", counter);
 		return (EXIT_SUCCESS);
 	}
-	calc_rota(&a, &counter);
+	find_put_smallest(&a, &counter);
 	t_node *tmp;
 	tmp = a.top;
 	while (tmp)
