@@ -11,56 +11,6 @@ void	init(t_stack *a, t_stack *b)
 	b->size = 0;
 }
 
-void	push_to_top(t_stack *a, t_node *min, int *counter)
-{
-	t_node	*tmp;
-	int		count;
-	int		min_i;
-
-	if (min->value == a->top->value)
-		return ;
-	tmp = a->top;
-	count = 0;
-	min_i = 0;
-	while (tmp)
-	{
-		if (min == tmp)
-			break ;
-		min_i++;
-		tmp = tmp->prev;
-	}
-	if (min_i <= a->size / 2)
-	{
-		while (min_i--)
-			ra(a, counter);
-	}
-	else
-	{
-		count = a->size - min_i;
-		while (count--)
-			rra(a, counter);
-	}
-}
-
-void	find_put_smallest(t_stack *a, int *counter)
-{
-	int		size;
-	t_node	*tmp;
-
-	size = a->size;
-	tmp = a->top;
-	while (size)
-	{
-		if (tmp->index == 0)
-		{
-			push_to_top(a, tmp, counter);
-			return ;
-		}
-		tmp = tmp->prev;
-		size--;
-	}
-}
-
 void	find_dup(t_stack *a)
 {
 	t_node	*k;
@@ -80,18 +30,18 @@ void	find_dup(t_stack *a)
 	}
 }
 
-int	calc_index(t_stack *stack, t_node *successor)
+int	calc_index(t_stack *stack, t_node *node)
 {
 	t_node	*tmp;
 	int		i;
 
-	if (successor->value == stack->top->value)
+	if (node->value == stack->top->value)
 		return (0);
 	tmp = stack->top;
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->value == successor-> value)
+		if (tmp->value == node-> value)
 			break ;
 		i++;
 		tmp = tmp->prev;
@@ -99,7 +49,9 @@ int	calc_index(t_stack *stack, t_node *successor)
 	return (i);
 }
 
-int	find_successor(t_stack *go, t_node *base)
+
+// BURASI HATALI BURAYA BAK BURADAN PATLIYORSUN
+int	find_successor(t_node *base, t_stack *go)
 {
 	t_node	*tmp;
 	t_node	*min_go;
@@ -118,65 +70,258 @@ int	find_successor(t_stack *go, t_node *base)
 		tmp = tmp->prev;
 	}
 	tmp = go->top;
+	if (base->value < min_go->value || base->value > max_go->value)
+	{
+		return (calc_index(go, min_go));
+	}
 	successor = NULL;
 	while (tmp)
 	{
 		if (tmp->value > base->value)
 		{
-			if (successor == NULL)
-				successor = tmp;
-			else if (successor->value > tmp->value)
+			if (!successor || tmp->value < successor->value)
 				successor = tmp;
 		}
 		tmp = tmp->prev;
 	}
-	if (successor == NULL)
-		return (calc_index(go, max_go));
-	else
-		return (calc_index(go, successor));
+	return (calc_index(go, successor));
+}
 
+void	move(int i_from, int i_to, t_stack *from, t_stack *to, int *counter)
+{
+	int	move_from;
+	int	move_to;
+	int	tmp_from;
+	int	tmp_to;
+
+	if (from->size / 2 >= i_from)
+		move_from = i_from;
+	else
+		move_from = i_from - from->size;
+	if (to->size / 2 >= i_to)
+		move_to = i_to;
+	else
+		move_to = i_to - to->size;
+
+	if (move_from == 0)
+	{
+		if (move_to > 0)
+			while (move_to--)
+				rb(to, counter);
+		else
+			while (move_to++)
+				rrb(to, counter);
+		return ;
+	}
+	if (move_to == 0)
+	{
+		if (move_from > 0)
+			while (move_from--)
+				ra(from, counter);
+		else
+			while (move_from++)
+				rra(from, counter);
+		return ;
+	}
+	if ((move_from > 0 && move_to > 0) || (move_from < 0 && move_to < 0))
+	{
+		if (move_from < 0)
+			tmp_from = move_from * -1;
+		else
+			tmp_from = move_from;
+		if (move_to < 0)
+			tmp_to = move_to * -1;
+		else
+			tmp_to = move_to;
+		if (move_from > 0)
+		{
+			if (tmp_from > tmp_to)
+			{
+				while (tmp_to--)
+				{
+					rr(from, to, counter);
+					tmp_from--;
+				}
+				while (tmp_from--)
+					ra(from, counter);
+
+			}
+			else if (tmp_from < tmp_to)
+			{
+				while (tmp_from--)
+				{
+					rr(from, to, counter);
+					tmp_to--;
+				}
+				while (tmp_to--)
+					rb(to, counter);
+			}
+			else
+			{
+				while (tmp_to--)
+					rr(from, to, counter);
+			}
+		}
+		else
+		{
+			if (tmp_from > tmp_to)
+			{
+				while (tmp_to--)
+				{
+					rrr(from, to, counter);
+					tmp_from--;
+				}
+				while (tmp_from--)
+					rra(from, counter);
+			}
+			else if (tmp_from < tmp_to)
+			{
+				while (tmp_from--)
+				{
+					rrr(from, to, counter);
+					tmp_to--;
+				}
+				while (tmp_to--)
+					rrb(to, counter);
+			}
+			else
+			{
+				while (tmp_to--)
+					rrr(from, to, counter);
+			}
+		}
+	}
+	else if ((move_from > 0 && move_to < 0) || (move_from < 0 && move_to > 0))
+	{
+		if (move_from > 0)
+		{
+			while (move_from--)
+				ra(from, counter);
+			while (move_to++)
+				rrb(to, counter);
+		}
+		else
+		{
+			while (move_from++)
+				rra(from, counter);
+			while (move_to--)
+				rb(to, counter);
+		}
+	}
 }
 
 
-int	calc_price(t_stack *a, t_stack *b)
+
+void	calc_price(t_stack *from, t_stack *to, int *counter)
 {
 	t_node	*tmp;
 	int		price;
 	int		tmp_price;
-	int		tmp_v;
-	int		tmp_s;
+	int		tmp_i_to;
+	int		tmp_i_from;
+	int		i_to;
+	int		i_from;
+	int		move_from;
+	int		move_to;
 
-	tmp = a->top;
+	tmp = from->top;
 	price = 2147483647;
+	move_to = 0;
+	move_from = 0;
 	while (tmp)
 	{
-		tmp_v = find_successor(b, tmp);
-		tmp_s = calc_index(a, tmp);
-		if (b->size / 2 >= tmp_v)
+		tmp_i_to = find_successor(tmp, to);
+		tmp_i_from = calc_index(from, tmp);
+		if (to->size / 2 >= tmp_i_to)
+			move_to = tmp_i_to;
+		else
+			move_to = tmp_i_to - to->size;
+		if (from->size / 2 >= tmp_i_from)
+			move_from = tmp_i_from;
+		else
+			move_from = tmp_i_from - from->size;
+		if ((move_to > 0 && move_from > 0) || (move_to < 0 && move_from < 0))
 		{
-			if (a->size / 2 >= tmp_s && tmp_v >= tmp_s)
-				tmp_price = tmp_v;
-			else if (a->size / 2 >= tmp_s && tmp_v < tmp_s)
-				tmp_price = tmp_s;
+			if (move_from < 0)
+				move_from *= -1;
+			if (move_to < 0)
+				move_to *= -1;
+			if (move_to > move_from)
+				tmp_price = move_to;
 			else
-				tmp_price = tmp_v + a->size - tmp_s;
+				tmp_price = move_from;
 		}
 		else
 		{
-			if (a->size / 2 <= tmp_s && tmp_v >= tmp_s)
-				tmp_price = a->size - tmp_s;
-			else if (a->size / 2 >= tmp_s && tmp_v < tmp_s)
-				tmp_price = b->size - tmp_v;
-			else
-				tmp_price = tmp_s + b->size - tmp_v;
+			if (move_from < 0)
+				move_from *= -1;
+			if (move_to < 0)
+				move_to *= -1;
+			tmp_price = move_from + move_to;
 		}
-
 		if (price > tmp_price)
+		{
 			price = tmp_price;
+			i_to = tmp_i_to;
+			i_from = tmp_i_from;
+		}
 		tmp = tmp->prev;
 	}
-	return (++price);
+	move(i_from, i_to, from, to, counter);
 }
+
+void	place_smallest(t_stack *a ,int *counter)
+{
+	t_node	*smallest;
+	t_node	*tmp;
+	int		i;
+
+	smallest = a->top;
+	tmp = a->top;
+	i = 0;
+	while (tmp)
+	{
+		if (tmp->value < smallest->value)
+			smallest = tmp;
+		tmp = tmp->prev;
+	}
+	i = calc_index(a, smallest);
+	if (a->size / 2 > i)
+		while (i--)
+			ra(a, counter);
+	else
+		while (a->size - i++)
+			rra(a, counter);
+}
+
+void	sort_a(t_stack *a, int *counter)
+{
+	int	x;
+	int	y;
+	int	z;
+
+	x = a->top->value;
+	y = a->top->prev->value;
+	z = a->bottom->value;
+
+	if (x > y && y < z && x < z)
+		sa(a, counter);
+	else if (x > y && y > z)
+	{
+		sa(a, counter);
+		rra(a, counter);
+	}
+	else if (x > y && y < z && x > z)
+		ra(a, counter);
+	else if (x < y && y > z && x < z)
+	{
+		sa(a, counter);
+		ra(a, counter);
+	}
+	else if (x < y && y > z && x > z)
+		rra(a, counter);
+}
+
 
 int	main(int c, char *argv[])
 {
@@ -199,34 +344,25 @@ int	main(int c, char *argv[])
 	while (a.size > 3)
 	{
 		if (b.size < 2)
-			pa(&a, &b, &counter);
+			pb(&a, &b, &counter);
 		else
-			calc_price(&a, &b);
-	}
-	if (b.size)
-	{
-		while (b.size > 0)
 		{
-			add_to_back(&a, &b, &counter);
+			calc_price(&a, &b, &counter);
+			pb(&a, &b, &counter);
 		}
-		find_put_smallest(&a, &counter);
-		t_node *tmp;
-		tmp = a.top;
-		while (tmp)
-		{
-			printf("value: %i\n", tmp->value);
-			tmp = tmp->prev;
-		}
-		printf("count: %i \n", counter);
-		return (EXIT_SUCCESS);
 	}
-	find_put_smallest(&a, &counter);
-	t_node *tmp;
-	tmp = a.top;
-	while (tmp)
+	sort_a(&a, &counter);
+	while (b.size > 0)
 	{
-		printf("value: %i\n", tmp->value);
-		tmp = tmp->prev;
+		calc_price(&b, &a, &counter);
+		pa(&a, &b, &counter);
 	}
-	printf("count: %i \n", counter);
+	place_smallest(&a, &counter);
+	t_node *tempo_a = a.top;
+	printf("A STACK count:%i for size:%i\n", counter, a.size);
+	while (tempo_a)
+	{
+		printf("%i\n", tempo_a->value);
+		tempo_a = tempo_a->prev;
+	}
 }
