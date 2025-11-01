@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   moves_both.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:29 by emkir             #+#    #+#             */
-/*   Updated: 2025/10/28 12:26:21 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/01 17:41:23 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-
 static void	rotate_down(t_stack *stack)
 {
 	t_node	*tmp;
 
-	if (stack->size < 2) // BOŞ + TEK KONTROLÜ
+	if (stack->size < 2)
 		return ;
 	tmp = stack->bottom;
 	stack->bottom = tmp->next;
@@ -33,7 +32,7 @@ static void	rotate_up(t_stack *stack)
 {
 	t_node	*tmp;
 
-	if (stack->size < 2) // BOŞ + TEK KONTROLÜ
+	if (stack->size < 2)
 		return ;
 	tmp = stack->top;
 	stack->top = stack->top->prev;
@@ -60,4 +59,12 @@ void	rrr(t_stack *a, t_stack *b, int *counter)
 	rotate_down(b);
 	printf("rrb\n");
 	(*counter)++;
+}
+
+int calc_move(t_stack *stack, int i,)
+{
+    if (stack->size / 2 >= i)
+		return (i);
+	else
+		return (i - stack->size);
 }

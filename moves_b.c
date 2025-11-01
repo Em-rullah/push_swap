@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   moves_b.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 16:23:13 by emkir             #+#    #+#             */
+/*   Updated: 2025/11/01 16:23:36 by emkir            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "main.h"
 
@@ -12,7 +23,7 @@ void	sb(t_stack *stack, int *counter)
 	stack->top->next = NULL;
 	tmp->prev = stack->top->prev;
 	tmp->next = stack->top;
-	if (stack->top->prev != NULL) //  ÖNCEKİ 2.NİN ALTINDAKİ SON ELEMAN MI KONTROLÜ
+	if (stack->top->prev != NULL)
 		stack->top->prev->next = tmp;
 	else
 		stack->bottom = tmp;
@@ -51,7 +62,7 @@ void	rb(t_stack *stack, int *counter)
 {
 	t_node	*tmp;
 
-	if (stack->size < 2) // BOŞ + TEK KONTROLÜ
+	if (stack->size < 2)
 		return ;
 	tmp = stack->top;
 	stack->top = stack->top->prev;
@@ -69,7 +80,7 @@ void	rrb(t_stack *stack, int *counter)
 {
 	t_node	*tmp;
 
-	if (stack->size < 2) // BOŞ + TEK KONTROLÜ
+	if (stack->size < 2)
 		return ;
 	tmp = stack->bottom;
 	stack->bottom = tmp->next;

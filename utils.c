@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 16:23:08 by emkir             #+#    #+#             */
+/*   Updated: 2025/11/01 17:41:21 by emkir            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "main.h"
 
@@ -66,21 +77,12 @@ void	add_to_bottom(t_node *node, t_stack *stack)
 	}
 	stack->size++;
 }
-
-int	calc_wrap(t_stack *a)
+void	init(t_stack *a, t_stack *b)
 {
-	t_node	*tmp;
-	int		result;
-
-	result = 0;
-	tmp = a->top;
-	while (tmp->prev)
-	{
-		if (tmp->value > tmp->prev->value)
-			result++;
-		tmp = tmp->prev;
-	}
-	if (a->bottom->value > a->top->value)
-		result++;
-	return (result);
+	a->top = NULL;
+	a->bottom = NULL;
+	a->size = 0;
+	b->top = NULL;
+	b->bottom = NULL;
+	b->size = 0;
 }

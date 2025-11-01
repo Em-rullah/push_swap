@@ -1,7 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 16:23:06 by emkir             #+#    #+#             */
+/*   Updated: 2025/11/01 18:51:31 by emkir            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+
+#ifndef MAIN_H
+# define MAIN_H
+
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_node
 {
@@ -35,3 +49,13 @@ void	rb(t_stack *stack, int *counter);
 void	rrb(t_stack *stack, int *counter);
 void	rr(t_stack *a, t_stack *b, int *counter);
 void	rrr(t_stack *a, t_stack *b, int *counter);
+void	init(t_stack *a, t_stack *b);
+
+void up_a(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+void down_a(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+void up_re_a(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+void up_b(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+void down_b(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+void down_re_b(int moves_from, int moves_to, t_stack *from, t_stack *to, int *counter);
+
+#endif

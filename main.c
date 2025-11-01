@@ -1,15 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 16:50:19 by emkir             #+#    #+#             */
+/*   Updated: 2025/11/01 18:50:22 by emkir            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "main.h"
-
-void	init(t_stack *a, t_stack *b)
-{
-	a->top = NULL;
-	a->bottom = NULL;
-	a->size = 0;
-	b->top = NULL;
-	b->bottom = NULL;
-	b->size = 0;
-}
 
 void	find_dup(t_stack *a)
 {
@@ -49,8 +51,6 @@ int	calc_index(t_stack *stack, t_node *node)
 	return (i);
 }
 
-
-// BURASI HATALI BURAYA BAK BURADAN PATLIYORSUN
 int	find_successor(t_node *base, t_stack *go)
 {
 	t_node	*tmp;
@@ -91,122 +91,36 @@ void	move(int i_from, int i_to, t_stack *from, t_stack *to, int *counter)
 {
 	int	move_from;
 	int	move_to;
-	int	tmp_from;
-	int	tmp_to;
 
-	if (from->size / 2 >= i_from)
-		move_from = i_from;
-	else
-		move_from = i_from - from->size;
-	if (to->size / 2 >= i_to)
-		move_to = i_to;
-	else
-		move_to = i_to - to->size;
-
-	if (move_from == 0)
-	{
-		if (move_to > 0)
-			while (move_to--)
-				rb(to, counter);
-		else
-			while (move_to++)
-				rrb(to, counter);
-		return ;
-	}
-	if (move_to == 0)
-	{
-		if (move_from > 0)
-			while (move_from--)
-				ra(from, counter);
-		else
-			while (move_from++)
-				rra(from, counter);
-		return ;
-	}
+	move_from = calc_move(from, i_from);
+	move_to = calc_move(to, i_to);
 	if ((move_from > 0 && move_to > 0) || (move_from < 0 && move_to < 0))
 	{
-		if (move_from < 0)
-			tmp_from = move_from * -1;
-		else
-			tmp_from = move_from;
-		if (move_to < 0)
-			tmp_to = move_to * -1;
-		else
-			tmp_to = move_to;
 		if (move_from > 0)
 		{
 			if (tmp_from > tmp_to)
-			{
-				while (tmp_to--)
-				{
-					rr(from, to, counter);
-					tmp_from--;
-				}
-				while (tmp_from--)
-					ra(from, counter);
-
-			}
+				up_a(move_from, move_to, from, to, counter);
 			else if (tmp_from < tmp_to)
-			{
-				while (tmp_from--)
-				{
-					rr(from, to, counter);
-					tmp_to--;
-				}
-				while (tmp_to--)
-					rb(to, counter);
-			}
+				up_b(move_from, move_to, from, to, counter);
 			else
-			{
-				while (tmp_to--)
-					rr(from, to, counter);
-			}
+				up_both(move_from, move_to, from, to, counter);
 		}
 		else
 		{
 			if (tmp_from > tmp_to)
-			{
-				while (tmp_to--)
-				{
-					rrr(from, to, counter);
-					tmp_from--;
-				}
-				while (tmp_from--)
-					rra(from, counter);
-			}
+				down_a(move_from, move_to, from, to, counter);
 			else if (tmp_from < tmp_to)
-			{
-				while (tmp_from--)
-				{
-					rrr(from, to, counter);
-					tmp_to--;
-				}
-				while (tmp_to--)
-					rrb(to, counter);
-			}
+				down_b(move_from, move_to, from, to, counter);
 			else
-			{
-				while (tmp_to--)
-					rrr(from, to, counter);
-			}
+				down_both(move_from, move_to, from, to, counter);
 		}
 	}
-	else if ((move_from > 0 && move_to < 0) || (move_from < 0 && move_to > 0))
+	else
 	{
 		if (move_from > 0)
-		{
-			while (move_from--)
-				ra(from, counter);
-			while (move_to++)
-				rrb(to, counter);
-		}
+			up_re_a(move_from, move_to, from, to, counter);
 		else
-		{
-			while (move_from++)
-				rra(from, counter);
-			while (move_to--)
-				rb(to, counter);
-		}
+			up_re_b(move_from, move_to, from, to, counter);
 	}
 }
 
@@ -358,11 +272,4 @@ int	main(int c, char *argv[])
 		pa(&a, &b, &counter);
 	}
 	place_smallest(&a, &counter);
-	t_node *tempo_a = a.top;
-	printf("A STACK count:%i for size:%i\n", counter, a.size);
-	while (tempo_a)
-	{
-		printf("%i\n", tempo_a->value);
-		tempo_a = tempo_a->prev;
-	}
 }
