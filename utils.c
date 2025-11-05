@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:08 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/01 17:41:21 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/05 13:04:27 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	add_to_bottom(t_node *node, t_stack *stack)
 	}
 	stack->size++;
 }
-void	init(t_stack *a, t_stack *b)
+
+void	init(t_stack *a, t_stack *b, int *counter)
 {
 	a->top = NULL;
 	a->bottom = NULL;
@@ -85,4 +86,5 @@ void	init(t_stack *a, t_stack *b)
 	b->top = NULL;
 	b->bottom = NULL;
 	b->size = 0;
+	*counter = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_both.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:29 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/01 17:41:23 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/05 12:50:38 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	rrr(t_stack *a, t_stack *b, int *counter)
 	(*counter)++;
 }
 
-int calc_move(t_stack *stack, int i,)
+int	calc_move(t_stack *stack, int i)
 {
-    if (stack->size / 2 >= i)
+	if (stack->size / 2 >= i)
 		return (i);
 	else
 		return (i - stack->size);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:50:19 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/01 18:50:22 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/05 14:07:33 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,140 +51,7 @@ int	calc_index(t_stack *stack, t_node *node)
 	return (i);
 }
 
-int	find_successor(t_node *base, t_stack *go)
-{
-	t_node	*tmp;
-	t_node	*min_go;
-	t_node	*max_go;
-	t_node	*successor;
-
-	tmp = go->top;
-	min_go = go->top;
-	max_go = go->top;
-	while (tmp)
-	{
-		if (tmp->value > max_go->value)
-			max_go = tmp;
-		if (tmp->value < min_go->value)
-			min_go = tmp;
-		tmp = tmp->prev;
-	}
-	tmp = go->top;
-	if (base->value < min_go->value || base->value > max_go->value)
-	{
-		return (calc_index(go, min_go));
-	}
-	successor = NULL;
-	while (tmp)
-	{
-		if (tmp->value > base->value)
-		{
-			if (!successor || tmp->value < successor->value)
-				successor = tmp;
-		}
-		tmp = tmp->prev;
-	}
-	return (calc_index(go, successor));
-}
-
-void	move(int i_from, int i_to, t_stack *from, t_stack *to, int *counter)
-{
-	int	move_from;
-	int	move_to;
-
-	move_from = calc_move(from, i_from);
-	move_to = calc_move(to, i_to);
-	if ((move_from > 0 && move_to > 0) || (move_from < 0 && move_to < 0))
-	{
-		if (move_from > 0)
-		{
-			if (tmp_from > tmp_to)
-				up_a(move_from, move_to, from, to, counter);
-			else if (tmp_from < tmp_to)
-				up_b(move_from, move_to, from, to, counter);
-			else
-				up_both(move_from, move_to, from, to, counter);
-		}
-		else
-		{
-			if (tmp_from > tmp_to)
-				down_a(move_from, move_to, from, to, counter);
-			else if (tmp_from < tmp_to)
-				down_b(move_from, move_to, from, to, counter);
-			else
-				down_both(move_from, move_to, from, to, counter);
-		}
-	}
-	else
-	{
-		if (move_from > 0)
-			up_re_a(move_from, move_to, from, to, counter);
-		else
-			up_re_b(move_from, move_to, from, to, counter);
-	}
-}
-
-
-
-void	calc_price(t_stack *from, t_stack *to, int *counter)
-{
-	t_node	*tmp;
-	int		price;
-	int		tmp_price;
-	int		tmp_i_to;
-	int		tmp_i_from;
-	int		i_to;
-	int		i_from;
-	int		move_from;
-	int		move_to;
-
-	tmp = from->top;
-	price = 2147483647;
-	move_to = 0;
-	move_from = 0;
-	while (tmp)
-	{
-		tmp_i_to = find_successor(tmp, to);
-		tmp_i_from = calc_index(from, tmp);
-		if (to->size / 2 >= tmp_i_to)
-			move_to = tmp_i_to;
-		else
-			move_to = tmp_i_to - to->size;
-		if (from->size / 2 >= tmp_i_from)
-			move_from = tmp_i_from;
-		else
-			move_from = tmp_i_from - from->size;
-		if ((move_to > 0 && move_from > 0) || (move_to < 0 && move_from < 0))
-		{
-			if (move_from < 0)
-				move_from *= -1;
-			if (move_to < 0)
-				move_to *= -1;
-			if (move_to > move_from)
-				tmp_price = move_to;
-			else
-				tmp_price = move_from;
-		}
-		else
-		{
-			if (move_from < 0)
-				move_from *= -1;
-			if (move_to < 0)
-				move_to *= -1;
-			tmp_price = move_from + move_to;
-		}
-		if (price > tmp_price)
-		{
-			price = tmp_price;
-			i_to = tmp_i_to;
-			i_from = tmp_i_from;
-		}
-		tmp = tmp->prev;
-	}
-	move(i_from, i_to, from, to, counter);
-}
-
-void	place_smallest(t_stack *a ,int *counter)
+void	place_smallest(t_stack *a, int *counter)
 {
 	t_node	*smallest;
 	t_node	*tmp;
@@ -208,68 +75,24 @@ void	place_smallest(t_stack *a ,int *counter)
 			rra(a, counter);
 }
 
-void	sort_a(t_stack *a, int *counter)
-{
-	int	x;
-	int	y;
-	int	z;
-
-	x = a->top->value;
-	y = a->top->prev->value;
-	z = a->bottom->value;
-
-	if (x > y && y < z && x < z)
-		sa(a, counter);
-	else if (x > y && y > z)
-	{
-		sa(a, counter);
-		rra(a, counter);
-	}
-	else if (x > y && y < z && x > z)
-		ra(a, counter);
-	else if (x < y && y > z && x < z)
-	{
-		sa(a, counter);
-		ra(a, counter);
-	}
-	else if (x < y && y > z && x > z)
-		rra(a, counter);
-}
-
-
 int	main(int c, char *argv[])
 {
 	t_stack	a;
 	t_stack	b;
 	int		i;
 	int		counter;
+	t_node	*next_on;
 
-	init(&a, &b);
+	init(&a, &b, &counter);
 	i = 1;
-	counter = 0;
-	while (argv[i])
-	{
-		add_to_bottom(create_node(ft_atoi(argv[i])), &a);
-		i++;
-	}
 	if (c == 1)
-		catch_error("No input");
+	catch_error("No input");
+	while (argv[i])
+	add_to_bottom(create_node(ft_atoi(argv[i++])), &a);
+	next_on = a.top;
+	put_to_b(&a, &b, &counter, next_on);
+	put_to_a(&a, &b, &counter, next_on);
 	find_dup(&a);
-	while (a.size > 3)
-	{
-		if (b.size < 2)
-			pb(&a, &b, &counter);
-		else
-		{
-			calc_price(&a, &b, &counter);
-			pb(&a, &b, &counter);
-		}
-	}
 	sort_a(&a, &counter);
-	while (b.size > 0)
-	{
-		calc_price(&b, &a, &counter);
-		pa(&a, &b, &counter);
-	}
 	place_smallest(&a, &counter);
 }
