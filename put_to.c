@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 11:32:32 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 09:50:37 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/06 15:33:42 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	put_to_b(t_stack *a, t_stack *b, int *counter, t_node **next_on)
 	}
 }
 
-void	put_to_a(t_stack *a, t_stack *b, int *counter, t_node **next_on)
+void	put_to_a(t_stack *b, t_stack *a, int *counter, t_node **next_on)
 {
 	while (b->size > 0)
 	{

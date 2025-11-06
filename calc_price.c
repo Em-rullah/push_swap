@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:46:05 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 08:05:32 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/06 15:33:31 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	calc_same_slice(int move_to, int move_from)
 	}
 	else
 	{
-		if (move_to > move_from)
+		if (-move_to > -move_from)
 			return (-move_to);
 		else
 			return (-move_from);
@@ -57,7 +57,6 @@ void	calc_price(t_stack *from, t_stack *to, t_node **next_on)
 	int		move_to;
 	int		move_from;
 
-	(void)next_on;
 	tmp = from->top;
 	price = 2147483647;
 	while (tmp)

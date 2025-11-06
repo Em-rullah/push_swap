@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:06 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 10:42:46 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/06 14:08:32 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	rrb(t_stack *stack, int *counter);
 void	rr(t_stack *a, t_stack *b, int *counter);
 void	rrr(t_stack *a, t_stack *b, int *counter);
 void	init(t_stack *a, t_stack *b, int *counter);
-void	put_to_a(t_stack *a, t_stack *b, int *counter, t_node **next_on);
+void	put_to_a(t_stack *b, t_stack *a, int *counter, t_node **next_on);
 void	put_to_b(t_stack *a, t_stack *b, int *counter, t_node **next_on);
 int		find_successor(t_node **base, t_stack *go);
 void	calc_price(t_stack *from, t_stack *to, t_node **next_on);

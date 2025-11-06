@@ -6,10 +6,9 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:50:19 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 10:56:46 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/06 15:09:29 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "main.h"
 
@@ -31,7 +30,8 @@ int	main(int c, char *argv[])
 	next_on = a.top;
 	put_to_b(&a, &b, &counter, &next_on);
 	sort_a(&a, &counter);
-	put_to_a(&a, &b, &counter, &next_on);
+	next_on = b.top;
+	put_to_a(&b, &a, &counter, &next_on);
 	place_smallest(&a, &counter);
 	t_node *t = a.top;
 	while (t)
