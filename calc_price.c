@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_price.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 12:46:05 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/05 14:02:59 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/06 08:05:32 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ static int	calc_different_slice(int move_to, int move_from)
 	return (move_to + move_from);
 }
 
-static void	calc_moves_to(t_stack *to, int *move_to, t_node *tmp)
+static void	calc_moves_to(t_stack *to, int *move_to, t_node **tmp)
 {
 	*move_to = calc_move(to, find_successor(tmp, to));
 }
 
-static void	calc_moves_from(t_stack *from, int *move_from, t_node *tmp)
+static void	calc_moves_from(t_stack *from, int *move_from, t_node **tmp)
 {
 	*move_from = calc_move(from, calc_index(from, tmp));
 }
 
-void	calc_price(t_stack *from, t_stack *to, t_node *next_on)
+void	calc_price(t_stack *from, t_stack *to, t_node **next_on)
 {
 	t_node	*tmp;
 	int		price;
@@ -57,12 +57,13 @@ void	calc_price(t_stack *from, t_stack *to, t_node *next_on)
 	int		move_to;
 	int		move_from;
 
+	(void)next_on;
 	tmp = from->top;
 	price = 2147483647;
 	while (tmp)
 	{
-		calc_moves_to(to, &move_to, tmp);
-		calc_moves_from(from, &move_from, tmp);
+		calc_moves_to(to, &move_to, &tmp);
+		calc_moves_from(from, &move_from, &tmp);
 		if ((move_to >= 0 && move_from >= 0)
 			|| (move_to <= 0 && move_from <= 0))
 			tmp_price = calc_same_slice(move_to, move_from);
@@ -71,7 +72,7 @@ void	calc_price(t_stack *from, t_stack *to, t_node *next_on)
 		if (price > tmp_price)
 		{
 			price = tmp_price;
-			next_on = tmp;
+			*next_on = tmp;
 		}
 		tmp = tmp->prev;
 	}

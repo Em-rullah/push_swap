@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_both.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:29 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/05 12:50:38 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:24:39 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	rr(t_stack *a, t_stack *b, int *counter)
 {
 	rotate_up(a);
 	rotate_up(b);
-	printf("rr\n");
+	write(1, "rr\n", 3);
 	(*counter)++;
 }
 
@@ -57,7 +57,7 @@ void	rrr(t_stack *a, t_stack *b, int *counter)
 {
 	rotate_down(a);
 	rotate_down(b);
-	printf("rrb\n");
+	write(1, "rrr\n", 4);
 	(*counter)++;
 }
 

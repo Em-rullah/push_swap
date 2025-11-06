@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:15 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/05 13:04:25 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:23:32 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sa(t_stack *stack, int *counter)
 	else
 		stack->bottom = tmp;
 	stack->top->prev = tmp;
-	printf("sa\n");
+	write(1, "sa\n", 3);
 	(*counter)++;
 }
 
@@ -56,7 +56,7 @@ void	pa(t_stack *a, t_stack *b, int *counter)
 	a->top = tmp_b;
 	a->size++;
 	b->size--;
-	printf("pa\n");
+	write(1, "pa\n", 3);
 	(*counter)++;
 }
 
@@ -74,7 +74,7 @@ void	ra(t_stack *stack, int *counter)
 	tmp->next = stack->bottom;
 	stack->bottom = tmp;
 	tmp->prev = NULL;
-	printf("ra\n");
+	write(1, "ra\n", 3);
 	(*counter)++;
 }
 
@@ -92,6 +92,6 @@ void	rra(t_stack *stack, int *counter)
 	tmp->prev = stack->top;
 	stack->top = tmp;
 	tmp->next = NULL;
-	printf("rra\n");
+	write(1, "rra\n", 4);
 	(*counter)++;
 }

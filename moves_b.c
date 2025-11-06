@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:13 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/01 16:23:36 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/06 13:24:04 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sb(t_stack *stack, int *counter)
 	else
 		stack->bottom = tmp;
 	stack->top->prev = tmp;
-	printf("sb\n");
+	write(1, "sb\n", 3);
 	(*counter)++;
 }
 
@@ -54,7 +54,7 @@ void	pb(t_stack *a, t_stack *b, int *counter)
 	b->top = tmp_a;
 	b->size++;
 	a->size--;
-	printf("pb\n");
+	write(1, "pb\n", 3);
 	(*counter)++;
 }
 
@@ -72,7 +72,7 @@ void	rb(t_stack *stack, int *counter)
 	tmp->next = stack->bottom;
 	stack->bottom = tmp;
 	tmp->prev = NULL;
-	printf("rb\n");
+	write(1, "rb\n", 3);
 	(*counter)++;
 }
 
@@ -90,6 +90,6 @@ void	rrb(t_stack *stack, int *counter)
 	tmp->prev = stack->top;
 	stack->top = tmp;
 	tmp->next = NULL;
-	printf("rrb\n");
+	write(1, "rrb\n", 4);
 	(*counter)++;
 }
