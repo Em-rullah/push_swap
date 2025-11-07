@@ -6,12 +6,11 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:50:19 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 11:30:17 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 12:05:08 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
 
 char	*ft_strdup(const char *s)
 {
@@ -35,48 +34,45 @@ char	*ft_strdup(const char *s)
 	return (new_s);
 }
 
-void	populate_a(char *argv[], t_stack *a, t_stack *b)
+void	populate_a(char *argv[], t_stack *a, t_stack *b, int i)
 {
 	int		j;
-	int		i;
 	char	**argv_two;
 
-	i = 1;
-	while (argv[i])
+	if (ft_strchr(argv[i]))
 	{
-		if (ft_strchr(argv[i]))
+		j = 0;
+		argv_two = ft_split(argv[i]);
+		if (!argv_two)
+			catch_error("Error", a, b);
+		if (!argv_two[j])
 		{
-			j = 0;
-			argv_two = ft_split(argv[i]);
-			if (!argv_two)
-				catch_error("Error", a, b);
-			if (!argv_two[j])
-			{
-				free_words(argv_two);
-				catch_error("Error", a, b);
-			}
-			while (argv_two[j])
-				add_to_bottom(create_node(ft_atoi(argv_two[j++], a,
-							b), a, b), a);
 			free_words(argv_two);
+			catch_error("Error", a, b);
 		}
-		else
-			add_to_bottom(create_node(ft_atoi(argv[i], a, b), a, b), a);
-		i++;
+		while (argv_two[j])
+			add_to_bottom(create_node(ft_atoi(argv_two[j++], a,
+						b), a, b), a);
+		free_words(argv_two);
 	}
+	else
+		add_to_bottom(create_node(ft_atoi(argv[i], a, b), a, b), a);
 }
 
 int	main(int c, char *argv[])
 {
+	int		i;
 	t_stack	a;
 	t_stack	b;
 	int		counter;
 	t_node	*next_on;
 
+	i = 1;
 	init(&a, &b, &counter);
 	if (c == 1)
 		catch_error("Error", &a, &b);
-	populate_a(argv, &a, &b);
+	while (argv[i])
+		populate_a(argv, &a, &b, i++);
 	find_dup(&a, &b);
 	next_on = a.top;
 	put_to_b(&a, &b, &counter, &next_on);
