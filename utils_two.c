@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:16:51 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/06 10:48:24 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 09:02:46 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	find_dup(t_stack *a, t_stack *b)
 		while (j)
 		{
 			if (k->value == j->value)
-				catch_error("Duplicate", a, b);
+				catch_error("Error", a, b);
 			j = j->prev;
 		}
 		k = k->prev;

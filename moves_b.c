@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:13 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 13:24:04 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 11:22:12 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	rb(t_stack *stack, int *counter)
 	tmp = stack->top;
 	stack->top = stack->top->prev;
 	stack->top->next = NULL;
-
 	stack->bottom->prev = tmp;
 	tmp->next = stack->bottom;
 	stack->bottom = tmp;
@@ -85,7 +84,6 @@ void	rrb(t_stack *stack, int *counter)
 	tmp = stack->bottom;
 	stack->bottom = tmp->next;
 	stack->bottom->prev = NULL;
-
 	stack->top->next = tmp;
 	tmp->prev = stack->top;
 	stack->top = tmp;

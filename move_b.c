@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:49:27 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/06 15:37:21 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 08:57:29 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	move_up_a_b(t_node **next_to, t_stack *from,
 	int	move_from;
 	int	move_to;
 
-	move_from = calc_move(from, calc_index(from, next_to));
+	move_from = -1 * calc_move(from, calc_index(from, next_to));
 	move_to = calc_move(to, find_successor(next_to, to));
-	while (move_from++ < 0)
+	while (move_from--)
 		rrb(from, counter);
-	while (move_to-- > 0)
+	while (move_to--)
 		ra(to, counter);
 }
 
@@ -33,10 +33,10 @@ static void	move_up_b_b(t_node **next_to, t_stack *from,
 	int	move_to;
 
 	move_from = calc_move(from, calc_index(from, next_to));
-	move_to = calc_move(to, find_successor(next_to, to));
-	while (move_from-- > 0)
+	move_to = -1 * calc_move(to, find_successor(next_to, to));
+	while (move_from--)
 		rb(from, counter);
-	while (move_to++ < 0)
+	while (move_to--)
 		rra(to, counter);
 }
 
@@ -111,7 +111,7 @@ void	move_b(t_node **next_to, t_stack *from, t_stack *to, int *counter)
 		move_down_both_b(next_to, from, to, counter);
 	else
 	{
-		if (move_to <= 0)
+		if (move_from >= 0)
 			move_up_b_b(next_to, from, to, counter);
 		else
 			move_up_a_b(next_to, from, to, counter);

@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:15 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 13:23:32 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 08:57:21 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ra(t_stack *stack, int *counter)
 	tmp = stack->top;
 	stack->top = stack->top->prev;
 	stack->top->next = NULL;
-
 	stack->bottom->prev = tmp;
 	tmp->next = stack->bottom;
 	stack->bottom = tmp;
@@ -87,7 +86,6 @@ void	rra(t_stack *stack, int *counter)
 	tmp = stack->bottom;
 	stack->bottom = tmp->next;
 	stack->bottom->prev = NULL;
-
 	stack->top->next = tmp;
 	tmp->prev = stack->top;
 	stack->top = tmp;

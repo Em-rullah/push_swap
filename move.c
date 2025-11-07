@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 13:55:36 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 15:37:47 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 08:43:18 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	move_up_a(t_node **next_to, t_stack *from,
 
 	move_from = calc_move(from, calc_index(from, next_to));
 	move_to = -1 * calc_move(to, find_successor(next_to, to));
-	while (move_from-- > 0)
+	while (move_from--)
 		ra(from, counter);
-	while (move_to-- > 0)
+	while (move_to--)
 		rrb(to, counter);
 }
 
@@ -62,9 +62,9 @@ static void	move_up_b(t_node **next_to, t_stack *from,
 
 	move_from = -1 * calc_move(from, calc_index(from, next_to));
 	move_to = calc_move(to, find_successor(next_to, to));
-	while (move_from-- > 0)
+	while (move_from--)
 		rra(from, counter);
-	while (move_to-- > 0)
+	while (move_to--)
 		rb(to, counter);
 }
 

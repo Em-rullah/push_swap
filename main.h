@@ -6,17 +6,15 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:06 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 14:08:32 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 11:21:33 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MAIN_H
 # define MAIN_H
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_node
 {
@@ -62,4 +60,11 @@ void	clean_a(t_stack *a);
 void	clean_b(t_stack *b);
 void	find_dup(t_stack *a, t_stack *b);
 void	place_smallest(t_stack *a, int *counter);
+void	free_words(char **word_arr);
+int		is_space(char c);
+size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s);
+char	*ft_strchr(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s);
 #endif

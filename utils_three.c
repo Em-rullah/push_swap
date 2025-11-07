@@ -6,12 +6,11 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:50:54 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/06 10:51:18 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 09:02:42 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
 
 t_node	*create_node(int value, t_stack *a, t_stack *b)
 {
@@ -19,7 +18,7 @@ t_node	*create_node(int value, t_stack *a, t_stack *b)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
-		catch_error("Error while initializing", a, b);
+		catch_error("Error", a, b);
 	node->value = value;
 	node->next = NULL;
 	node->prev = NULL;
@@ -29,7 +28,6 @@ t_node	*create_node(int value, t_stack *a, t_stack *b)
 
 void	add_to_bottom(t_node *node, t_stack *stack)
 {
-
 	if (stack->size != 0)
 	{
 		node->next = stack->bottom;

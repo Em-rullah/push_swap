@@ -6,7 +6,7 @@
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 11:32:32 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/06 15:33:42 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/07 08:56:19 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ void	sort_a(t_stack *a, int *counter)
 	top = a->top->value;
 	middle = a->top->prev->value;
 	bottom = a->bottom->value;
-
 	if (top > middle && middle < bottom && top < bottom)
 		sa(a, counter);
 	else if (top > middle && middle > bottom)
