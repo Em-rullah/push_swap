@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:50:54 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/07 09:02:42 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 13:29:28 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_to_bottom(t_node *node, t_stack *stack)
 	stack->size++;
 }
 
-void	init(t_stack *a, t_stack *b, int *counter)
+void	init(t_stack *a, t_stack *b)
 {
 	a->top = NULL;
 	a->bottom = NULL;
@@ -50,5 +50,55 @@ void	init(t_stack *a, t_stack *b, int *counter)
 	b->top = NULL;
 	b->bottom = NULL;
 	b->size = 0;
-	*counter = 0;
+}
+
+int	find_successor(t_node **base, t_stack *go)
+{
+	t_node	*tmp;
+	t_node	*min_go;
+	t_node	*max_go;
+	t_node	*successor;
+
+	min_go = go->top;
+	max_go = go->top;
+	find_min_max(&min_go, &max_go, go);
+	tmp = go->top;
+	if ((*base)->value < min_go->value || (*base)->value > max_go->value)
+		return (calc_index(go, &min_go));
+	successor = NULL;
+	while (tmp)
+	{
+		if (tmp->value > (*base)->value)
+			if (!successor || tmp->value < successor->value)
+				successor = tmp;
+		tmp = tmp->prev;
+	}
+	return (calc_index(go, &successor));
+}
+
+void	sort_a(t_stack *a)
+{
+	int	top;
+	int	middle;
+	int	bottom;
+
+	top = a->top->value;
+	middle = a->top->prev->value;
+	bottom = a->bottom->value;
+	if (top > middle && middle < bottom && top < bottom)
+		sa(a);
+	else if (top > middle && middle > bottom)
+	{
+		sa(a);
+		rra(a);
+	}
+	else if (top > middle && middle < bottom && top > bottom)
+		ra(a);
+	else if (top < middle && middle > bottom && top < bottom)
+	{
+		sa(a);
+		ra(a);
+	}
+	else if (top < middle && middle > bottom && top > bottom)
+		rra(a);
 }

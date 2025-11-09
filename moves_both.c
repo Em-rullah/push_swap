@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves_both.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 12:10:29 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 08:56:55 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 13:27:44 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,16 @@ static void	rotate_up(t_stack *stack)
 	tmp->prev = NULL;
 }
 
-void	rr(t_stack *a, t_stack *b, int *counter)
+void	rr(t_stack *a, t_stack *b)
 {
 	rotate_up(a);
 	rotate_up(b);
 	write(1, "rr\n", 3);
-	(*counter)++;
 }
 
-void	rrr(t_stack *a, t_stack *b, int *counter)
+void	rrr(t_stack *a, t_stack *b)
 {
 	rotate_down(a);
 	rotate_down(b);
 	write(1, "rrr\n", 4);
-	(*counter)++;
-}
-
-int	calc_move(t_stack *stack, int i)
-{
-	if (stack->size / 2 >= i)
-		return (i);
-	else
-		return (i - stack->size);
 }

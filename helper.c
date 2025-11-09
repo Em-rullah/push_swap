@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:19:44 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/07 11:21:09 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/09 10:38:49 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,7 @@
 
 int	is_space(char c)
 {
-	return (c == ' ' || (c >= 9 && c <= 13));
-}
-
-void	free_words(char **word_arr)
-{
-	int	i;
-
-	i = 0;
-	while (word_arr[i])
-	{
-		free(word_arr[i]);
-		i++;
-	}
-	free(word_arr);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	return (c == ' ' || c == '\t');
 }
 
 char	*ft_strchr(const char *s)
@@ -52,6 +29,38 @@ char	*ft_strchr(const char *s)
 		i++;
 	}
 	return (0);
+}
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+static char	*ft_strdup(const char *s)
+{
+	int		i;
+	int		size;
+	char	*new_s;
+
+	i = 0;
+	size = ft_strlen(s);
+	new_s = malloc (sizeof(char) * (size + 1));
+	if (!new_s)
+		return (0);
+	while (size)
+	{
+		new_s[i] = *s;
+		s++;
+		i++;
+		size--;
+	}
+	new_s[i] = '\0';
+	return (new_s);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

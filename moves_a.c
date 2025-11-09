@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   moves_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:15 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 08:57:21 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 13:26:47 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	sa(t_stack *stack, int *counter)
+void	sa(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -29,10 +29,9 @@ void	sa(t_stack *stack, int *counter)
 		stack->bottom = tmp;
 	stack->top->prev = tmp;
 	write(1, "sa\n", 3);
-	(*counter)++;
 }
 
-void	pa(t_stack *a, t_stack *b, int *counter)
+void	pa(t_stack *a, t_stack *b)
 {
 	t_node	*tmp_b;
 
@@ -57,10 +56,9 @@ void	pa(t_stack *a, t_stack *b, int *counter)
 	a->size++;
 	b->size--;
 	write(1, "pa\n", 3);
-	(*counter)++;
 }
 
-void	ra(t_stack *stack, int *counter)
+void	ra(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -74,10 +72,9 @@ void	ra(t_stack *stack, int *counter)
 	stack->bottom = tmp;
 	tmp->prev = NULL;
 	write(1, "ra\n", 3);
-	(*counter)++;
 }
 
-void	rra(t_stack *stack, int *counter)
+void	rra(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -91,5 +88,4 @@ void	rra(t_stack *stack, int *counter)
 	stack->top = tmp;
 	tmp->next = NULL;
 	write(1, "rra\n", 4);
-	(*counter)++;
 }

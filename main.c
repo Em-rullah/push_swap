@@ -3,60 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:50:19 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 12:05:08 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 16:31:07 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-char	*ft_strdup(const char *s)
+void	free_words(char **word_arr)
 {
-	int		i;
-	int		size;
-	char	*new_s;
+	int	i;
 
 	i = 0;
-	size = ft_strlen(s);
-	new_s = malloc (sizeof(char) * (size + 1));
-	if (!new_s)
-		return (0);
-	while (size)
+	while (word_arr[i])
 	{
-		new_s[i] = *s;
-		s++;
+		free(word_arr[i]);
 		i++;
-		size--;
 	}
-	new_s[i] = '\0';
-	return (new_s);
+	free(word_arr);
 }
 
-void	populate_a(char *argv[], t_stack *a, t_stack *b, int i)
+static void	check_sorted(t_stack *a)
 {
-	int		j;
-	char	**argv_two;
+	t_node	*tmp;
+	int		checker;
 
-	if (ft_strchr(argv[i]))
+	tmp = a->top;
+	checker = 0;
+	while (tmp != a->bottom)
 	{
-		j = 0;
-		argv_two = ft_split(argv[i]);
-		if (!argv_two)
-			catch_error("Error", a, b);
-		if (!argv_two[j])
-		{
-			free_words(argv_two);
-			catch_error("Error", a, b);
-		}
-		while (argv_two[j])
-			add_to_bottom(create_node(ft_atoi(argv_two[j++], a,
-						b), a, b), a);
-		free_words(argv_two);
+		if (tmp->value > tmp->prev->value)
+			checker = 1;
+		tmp = tmp->prev;
 	}
+	if (checker == 0)
+	{
+		clean_a(a);
+		exit(EXIT_SUCCESS);
+	}	
 	else
-		add_to_bottom(create_node(ft_atoi(argv[i], a, b), a, b), a);
+		return ;
 }
 
 int	main(int c, char *argv[])
@@ -64,22 +52,22 @@ int	main(int c, char *argv[])
 	int		i;
 	t_stack	a;
 	t_stack	b;
-	int		counter;
 	t_node	*next_on;
 
 	i = 1;
-	init(&a, &b, &counter);
+	init(&a, &b);
 	if (c == 1)
-		catch_error("Error", &a, &b);
+		return (1);
 	while (argv[i])
 		populate_a(argv, &a, &b, i++);
 	find_dup(&a, &b);
+	check_sorted(&a);
 	next_on = a.top;
-	put_to_b(&a, &b, &counter, &next_on);
-	sort_a(&a, &counter);
+	put_to_b(&a, &b, &next_on);
+	sort_a(&a);
 	next_on = b.top;
-	put_to_a(&b, &a, &counter, &next_on);
-	place_smallest(&a, &counter);
+	put_to_a(&b, &a, &next_on);
+	place_smallest(&a);
 	clean_a(&a);
 	clean_b(&b);
 }

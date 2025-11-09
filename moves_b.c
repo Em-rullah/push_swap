@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   moves_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:13 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 11:22:12 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 13:27:15 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	sb(t_stack *stack, int *counter)
+void	sb(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -29,10 +29,9 @@ void	sb(t_stack *stack, int *counter)
 		stack->bottom = tmp;
 	stack->top->prev = tmp;
 	write(1, "sb\n", 3);
-	(*counter)++;
 }
 
-void	pb(t_stack *a, t_stack *b, int *counter)
+void	pb(t_stack *a, t_stack *b)
 {
 	t_node	*tmp_a;
 
@@ -55,10 +54,9 @@ void	pb(t_stack *a, t_stack *b, int *counter)
 	b->size++;
 	a->size--;
 	write(1, "pb\n", 3);
-	(*counter)++;
 }
 
-void	rb(t_stack *stack, int *counter)
+void	rb(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -72,10 +70,9 @@ void	rb(t_stack *stack, int *counter)
 	stack->bottom = tmp;
 	tmp->prev = NULL;
 	write(1, "rb\n", 3);
-	(*counter)++;
 }
 
-void	rrb(t_stack *stack, int *counter)
+void	rrb(t_stack *stack)
 {
 	t_node	*tmp;
 
@@ -89,5 +86,4 @@ void	rrb(t_stack *stack, int *counter)
 	stack->top = tmp;
 	tmp->next = NULL;
 	write(1, "rrb\n", 4);
-	(*counter)++;
 }

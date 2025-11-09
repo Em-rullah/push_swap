@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:08 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 09:02:59 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/09 10:29:50 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	catch_error(char *msg, t_stack *a, t_stack *b)
 
 static void	check_ft_atoi(long n, t_stack *a, t_stack *b)
 {
-	if (n > 2147483647 || n < -2147483648L)
+	if (n > INT_MAX || n < INT_MIN)
 		catch_error("Error", a, b);
 }
 
@@ -79,9 +79,11 @@ int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
 	if (!nptr[i])
 		catch_error("Error", a, b);
 	while ('0' <= nptr[i] && nptr[i] <= '9')
+	{
 		n = 10 * n + (nptr[i++] - '0');
+		check_ft_atoi(n * sign, a, b);
+	}
 	if (nptr[i])
 		catch_error("Error", a, b);
-	check_ft_atoi(n * sign, a, b);
 	return (n * sign);
 }

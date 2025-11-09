@@ -3,41 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   put_to.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 11:32:32 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 08:56:19 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/08 13:28:50 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	put_to_b(t_stack *a, t_stack *b, int *counter, t_node **next_on)
+void	put_to_b(t_stack *a, t_stack *b, t_node **next_on)
 {
 	while (a->size > 3)
 	{
 		if (b->size < 2)
-			pb(a, b, counter);
+			pb(a, b);
 		else
 		{
 			calc_price(a, b, next_on);
-			move(next_on, a, b, counter);
-			pb(a, b, counter);
+			move_a(next_on, a, b);
+			pb(a, b);
 		}
 	}
 }
 
-void	put_to_a(t_stack *b, t_stack *a, int *counter, t_node **next_on)
+void	put_to_a(t_stack *b, t_stack *a, t_node **next_on)
 {
 	while (b->size > 0)
 	{
 		calc_price(b, a, next_on);
-		move_b(next_on, b, a, counter);
-		pa(a, b, counter);
+		move_b(next_on, b, a);
+		pa(a, b);
 	}
 }
 
-static void	find_min_max(t_node **min_go, t_node **max_go, t_stack *go)
+void	find_min_max(t_node **min_go, t_node **max_go, t_stack *go)
 {
 	t_node	*tmp;
 
@@ -50,55 +50,4 @@ static void	find_min_max(t_node **min_go, t_node **max_go, t_stack *go)
 			*min_go = tmp;
 		tmp = tmp->prev;
 	}
-}
-
-int	find_successor(t_node **base, t_stack *go)
-{
-	t_node	*tmp;
-	t_node	*min_go;
-	t_node	*max_go;
-	t_node	*successor;
-
-	min_go = go->top;
-	max_go = go->top;
-	find_min_max(&min_go, &max_go, go);
-	tmp = go->top;
-	if ((*base)->value < min_go->value || (*base)->value > max_go->value)
-		return (calc_index(go, &min_go));
-	successor = NULL;
-	while (tmp)
-	{
-		if (tmp->value > (*base)->value)
-			if (!successor || tmp->value < successor->value)
-				successor = tmp;
-		tmp = tmp->prev;
-	}
-	return (calc_index(go, &successor));
-}
-
-void	sort_a(t_stack *a, int *counter)
-{
-	int	top;
-	int	middle;
-	int	bottom;
-
-	top = a->top->value;
-	middle = a->top->prev->value;
-	bottom = a->bottom->value;
-	if (top > middle && middle < bottom && top < bottom)
-		sa(a, counter);
-	else if (top > middle && middle > bottom)
-	{
-		sa(a, counter);
-		rra(a, counter);
-	}
-	else if (top > middle && middle < bottom && top > bottom)
-		ra(a, counter);
-	else if (top < middle && middle > bottom && top < bottom)
-	{
-		sa(a, counter);
-		ra(a, counter);
-	}
-	else if (top < middle && middle > bottom && top > bottom)
-		rra(a, counter);
 }
