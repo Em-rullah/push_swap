@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:16:51 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/08 13:29:39 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/11 09:54:40 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "push_swap.h"
 
 int	calc_move(t_stack *stack, int i)
 {

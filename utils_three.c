@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:50:54 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/08 13:29:28 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/11 10:09:22 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "push_swap.h"
 
 t_node	*create_node(int value, t_stack *a, t_stack *b)
 {
@@ -52,7 +52,7 @@ void	init(t_stack *a, t_stack *b)
 	b->size = 0;
 }
 
-int	find_successor(t_node **base, t_stack *go)
+int	find_successor_b(t_node **base, t_stack *go)
 {
 	t_node	*tmp;
 	t_node	*min_go;

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:06 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/09 10:29:36 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/11 10:08:51 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -34,7 +34,9 @@ typedef struct s_stack
 	int		size;
 }	t_stack;
 
-void	calc_price(t_stack *from, t_stack *to, t_node **next_on);
+void	calc_price_a(t_stack *from, t_stack *to, t_node **next_on);
+
+void	calc_price_b(t_stack *from, t_stack *to, t_node **next_on);
 
 int		is_space(char c);
 char	*ft_strchr(const char *s);
@@ -62,11 +64,12 @@ void	rrr(t_stack *a, t_stack *b);
 void	put_to_a(t_stack *b, t_stack *a, t_node **next_on);
 void	put_to_b(t_stack *a, t_stack *b, t_node **next_on);
 void	find_min_max(t_node **min_go, t_node **max_go, t_stack *go);
+int		find_successor_a(t_node **base, t_stack *go);
 
 char	**ft_split(char const *s);
 
 void	init(t_stack *a, t_stack *b);
-int		find_successor(t_node **base, t_stack *go);
+int		find_successor_b(t_node **base, t_stack *go);
 void	sort_a(t_stack *a);
 void	add_to_bottom(t_node *node, t_stack *stack);
 t_node	*create_node(int value, t_stack *a, t_stack *b);

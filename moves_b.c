@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   moves_b.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
+/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:13 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/08 13:27:15 by emkir            ###   ########.fr       */
+/*   Updated: 2025/11/11 09:54:40 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "push_swap.h"
 
 void	sb(t_stack *stack)
 {

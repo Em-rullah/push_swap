@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_price.c                                       :+:      :+:    :+:   */
+/*   calc_price_a.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/05 12:46:05 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/07 08:35:28 by emrul            ###   ########.fr       */
+/*   Created: 2025/11/11 10:06:52 by emrul             #+#    #+#             */
+/*   Updated: 2025/11/11 10:07:17 by emrul            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "push_swap.h"
 
 static int	calc_same_slice(int move_to, int move_from)
 {
@@ -41,7 +41,7 @@ static int	calc_different_slice(int move_to, int move_from)
 
 static void	calc_moves_to(t_stack *to, int *move_to, t_node **tmp)
 {
-	*move_to = calc_move(to, find_successor(tmp, to));
+	*move_to = calc_move(to, find_successor_a(tmp, to));
 }
 
 static void	calc_moves_from(t_stack *from, int *move_from, t_node **tmp)
@@ -49,7 +49,7 @@ static void	calc_moves_from(t_stack *from, int *move_from, t_node **tmp)
 	*move_from = calc_move(from, calc_index(from, tmp));
 }
 
-void	calc_price(t_stack *from, t_stack *to, t_node **next_on)
+void	calc_price_a(t_stack *from, t_stack *to, t_node **next_on)
 {
 	t_node	*tmp;
 	int		price;
