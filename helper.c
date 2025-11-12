@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 11:19:44 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/11 09:54:40 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/12 11:58:58 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_space(char c)
 {
-	return (c == ' ' || c == '\t');
+	return (c == ' ');
 }
 
 char	*ft_strchr(const char *s)

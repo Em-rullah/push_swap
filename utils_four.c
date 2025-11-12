@@ -1,60 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_four.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/01 16:23:08 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/12 12:43:05 by emkir            ###   ########.fr       */
+/*   Created: 2025/11/12 12:42:06 by emkir             #+#    #+#             */
+/*   Updated: 2025/11/12 12:46:04 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	clean_b(t_stack *b)
-{
-	t_node	*cur;
-	t_node	*tmp;
-
-	if (!b)
-		return ;
-	cur = b->top;
-	while (cur)
-	{
-		tmp = cur->prev;
-		free(cur);
-		cur = tmp;
-	}
-	b->size = 0;
-}
-
-void	clean_a(t_stack *a)
-{
-	t_node	*cur;
-	t_node	*tmp;
-
-	if (!a)
-		return ;
-	cur = a->top;
-	while (cur)
-	{
-		tmp = cur->prev;
-		free(cur);
-		cur = tmp;
-	}
-	a->size = 0;
-}
-
-void	catch_error(char *msg, t_stack *a, t_stack *b)
-{
-	while (*msg)
-		write(2, msg++, 1);
-	write(2, "\n", 1);
-	clean_a(a);
-	clean_b(b);
-	exit(EXIT_FAILURE);
-}
 
 static void	check_ft_atoi(long n, t_stack *a, t_stack *b)
 {
@@ -62,7 +18,7 @@ static void	check_ft_atoi(long n, t_stack *a, t_stack *b)
 		catch_error("Error", a, b);
 }
 
-int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
+int	ft_atoi_split(const char *nptr, t_stack *a, t_stack *b, char ***argv_two)
 {
 	int		i;
 	int		sign;
@@ -84,6 +40,9 @@ int	ft_atoi(const char *nptr, t_stack *a, t_stack *b)
 		check_ft_atoi(n * sign, a, b);
 	}
 	if (nptr[i])
+	{
+		free_words(*argv_two);
 		catch_error("Error", a, b);
+	}
 	return (n * sign);
 }

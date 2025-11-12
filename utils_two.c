@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_two.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:16:51 by emrul             #+#    #+#             */
-/*   Updated: 2025/11/11 09:54:40 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/12 12:44:37 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void	populate_a(char *argv[], t_stack *a, t_stack *b, int i)
 			catch_error("Error", a, b);
 		}
 		while (argv_two[j])
-			add_to_bottom(create_node(ft_atoi(argv_two[j++], a,
-						b), a, b), a);
+			add_to_bottom(create_node(ft_atoi_split(argv_two[j++], a,
+						b, &argv_two), a, b), a);
 		free_words(argv_two);
 	}
 	else

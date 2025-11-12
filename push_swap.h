@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emrul <emrul@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emkir <emkir@student.42istanbul.com.tr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 16:23:06 by emkir             #+#    #+#             */
-/*   Updated: 2025/11/11 10:08:51 by emrul            ###   ########.fr       */
+/*   Updated: 2025/11/12 12:45:15 by emkir            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ void	clean_a(t_stack *a);
 void	clean_b(t_stack *b);
 void	catch_error(char *msg, t_stack *a, t_stack *b);
 int		ft_atoi(const char *nptr, t_stack *a, t_stack *b);
+
+int		ft_atoi_split(const char *nptr, t_stack *a,
+			t_stack *b, char ***argv_two);
 
 #endif

@@ -3,7 +3,7 @@ CC      := cc
 CFLAGS  := -Wall -Wextra -Werror
 RM      := rm -f
 
-SRCS    := main.c calc_price_a.c calc_price_b.c put_to.c move_a.c move_b.c moves_a.c moves_b.c moves_both.c utils.c utils_two.c utils_three.c helper.c split.c
+SRCS    := main.c calc_price_a.c calc_price_b.c put_to.c move_a.c move_b.c moves_a.c moves_b.c moves_both.c utils.c utils_two.c utils_three.c utils_four.c helper.c split.c
 OBJS    := $(SRCS:.c=.o)
 
 all: $(NAME)
